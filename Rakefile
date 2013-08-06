@@ -95,7 +95,7 @@ namespace :db do
   desc "Drop the database at #{DB_NAME}"
   task :drop do
     puts "Dropping database #{DB_NAME}..."
-    # exec("dropdb #{DB_NAME}") rescue nil
+    exec("dropdb #{DB_NAME}")
   end
 
   desc "Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
@@ -115,18 +115,6 @@ namespace :db do
   desc "Returns the current schema version number"
   task :version do
     puts "Current version: #{ActiveRecord::Migrator.current_version}"
-  end
-
-  desc "Batch run drop, create, migrate and seed"
-  task :reset do
-    # Rake::Task["db:drop"].reenable
-    Rake::Task["db:drop"].invoke
-    # Rake::Task["db:create"].reenable
-    Rake::Task["db:create"].invoke
-    # Rake::Task["db:migrate"].reenable
-    Rake::Task["db:migrate"].invoke
-    # Rake::Task["db:seed"].reenable
-    Rake::Task["db:seed"].invoke
   end
 end
 
